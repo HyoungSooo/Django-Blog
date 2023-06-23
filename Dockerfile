@@ -18,7 +18,7 @@ RUN adduser \
         --disabled-password \
         django-user
 
-RUN chmod 777 app
-RUN chown django-user:django-user -R app
+RUN chmod 777 /app
+RUN chown django-user:django-user -R /app
 
 USER django-user
