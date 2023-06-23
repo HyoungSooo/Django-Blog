@@ -21,3 +21,5 @@ RUN pip install -r requirements.txt --no-cache-dir
 COPY . .
 
 USER user:user
+
+CMD [ "python","manange.py","makemigrations" ]
