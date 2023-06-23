@@ -30,16 +30,32 @@ class PostSchema(Schema):
 api = Router(auth=JWTAuth())
 
 
-@api.post('/test', response=PostSchema)
-def test(request, a: PostSchema):
+@api.post('/post', response=PostSchema)
+def post_create(request, a: PostSchema):
     a.__dict__.update({'author': request.user, 'status': 'published'})
     Post.objects.create(**a.__dict__)
 
     data = Post.objects.filter(publish=a.publish).first()
+    data.slug = data.id
+    data.save()
     for i in a.tags.split(','):
         data.tags.add(i)
 
     return a.__dict__
+
+
+class DelPostSchema(Schema):
+    pk: int
+
+
+@api.delete('/post')
+def delete_post(request, data: DelPostSchema):
+    data = Post.objects.filter(id=data.pk)
+
+    if data.count() != 0:
+        data.delete()
+
+    return 'ok'
 
 
 app_name = 'blog'
