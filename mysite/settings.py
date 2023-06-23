@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'taggit',
     'markdownx',
     'users',
+    'corsheaders',
 ]
 
 SITE_ID = 1
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -164,3 +166,5 @@ NINJA_JWT = {
     "SLIDING_TOKEN_LIFETIME": datetime.timedelta(hours=5),
     "SLIDING_TOKEN_REFRESH_LIFETIME": datetime.timedelta(days=1),
 }
+CORS_ORIGIN_WHITELIST = ['*']
+CORS_ALLOW_CREDENTIALS = True
